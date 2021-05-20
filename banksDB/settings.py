@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-22oz-=0q0*!@$u31lmx%r*byeejl4@-em==f+r0*r5i2*s^wzd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['banksdb-phyle.herokuapp.com']
 
 
 # Application definition
