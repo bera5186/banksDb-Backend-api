@@ -27,3 +27,9 @@
 --  WHERE "branches"."city" = 'DELHI'
 --  ORDER BY "rank" DESC
 --  LIMIT 40;
+-- 
+-- CREATE INDEX BANK_ID_IDX ON banks USING gin(id);
+-- 
+-- explain ANALYSE SELECT * FROM banks;
+
+select * from banks;

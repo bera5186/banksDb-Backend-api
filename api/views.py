@@ -97,11 +97,20 @@ class BranchesAutocomplete(APIView):
 
 class BankInfo(APIView):
 
-    def get(self, request):
+    def get(self, request, id):
         
-        bank_id = request.GET['id']
+        # bank_id = request.GET['id']
+        context = {"error": False}
 
-        print(id)
+        if id == None:
+            context["error"] = True
+            context["message"] = ['Pass bank id banks/:id']
+            return Response(context, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response('hi', status=status.HTTP_200_OK)
+        bank = Banks.objects.filter(id=id).first()
+        serialized_bank = BankSerializer(bank, many=False)
+
+        context["result"] = serialized_bank.data
+
+        return Response(context, status=status.HTTP_200_OK)
 

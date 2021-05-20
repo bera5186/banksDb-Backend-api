@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'django.contrib.postgres',
-    'debug_toolbar'
+    'debug_toolbar',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -51,7 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware'
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'banksDB.urls'
@@ -160,3 +162,5 @@ INTERNAL_IPS = [
     '127.0.0.1',
     # ...
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
