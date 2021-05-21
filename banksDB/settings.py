@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-22oz-=0q0*!@$u31lmx%r*byeejl4@-em==f+r0*r5i2*s^wzd'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -84,31 +84,21 @@ WSGI_APPLICATION = 'banksDB.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'beubtjurdeop3bggb6f8',
-        'HOST': 'beubtjurdeop3bggb6f8-postgresql.services.clever-cloud.com',
+        'NAME': os.environ.get('DB_NAME'),
+        'HOST': os.environ.get('DB_HOST'),
         'PORT': '5432',
-        'USER': 'u217gbvqrdio1350ypy6',
-        'PASSWORD': 'A37Gnh6pOyLSz6cSgo60'
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD')
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'bank',
-#         'HOST': '172.17.0.2',
-#         'PORT': '5432',
-#         'USER': 'root',
-#         'PASSWORD': 'password'
-#     }
-# }
 
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis-14107.c264.ap-south-1-1.ec2.cloud.redislabs.com:14107",
+        "LOCATION": os.environ.get('REDIS_HOST'),
         "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "PASSWORD": os.environ.get('REDIS_PASSWORD')
         },
         "KEY_PREFIX": "banksdb_"
     }
