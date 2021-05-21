@@ -24,9 +24,11 @@ class BranchSearch(APIView):
         offset = request.GET.get("offset")
         city = request.GET.get("city")
 
-        # pagination setting
+        
         if search_query is None:
             return Response({"error":True,"query": "Null"}, status=status.HTTP_400_BAD_REQUEST)
+        if city is None:
+            return Response({"error":True,"city": "Null"}, status=status.HTTP_400_BAD_REQUEST)
         if limit is None:
             limit = 5
         if offset is None:
@@ -54,9 +56,8 @@ class BranchesAutocomplete(APIView):
         limit = request.GET.get("limit")
         offset = request.GET.get("offset")
 
-        # pagination setting
         if search_query is None:
-            return Response({"query": "Null"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error":True, "query": "Null"}, status=status.HTTP_400_BAD_REQUEST)
         if limit is None:
             limit = 5
         if offset is None:
