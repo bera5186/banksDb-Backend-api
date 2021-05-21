@@ -26,7 +26,7 @@ class BranchSearch(APIView):
 
         # pagination setting
         if search_query is None:
-            return Response({"query": "Null"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error":True,"query": "Null"}, status=status.HTTP_400_BAD_REQUEST)
         if limit is None:
             limit = 5
         if offset is None:
@@ -41,7 +41,7 @@ class BranchSearch(APIView):
         branches_offsetted = branches_limited.get_page(offset)
         serializer = BranchSerializer(branches_offsetted, many=True)
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({"error":False,"result":serializer.data}, status=status.HTTP_200_OK)
 
 
 class BranchesAutocomplete(APIView):

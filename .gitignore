@@ -2,3 +2,4 @@ venv
 .env
 banksDB/__pycache__
 api/__pycache__
+staticfiles
