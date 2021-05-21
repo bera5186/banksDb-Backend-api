@@ -30,7 +30,8 @@ For optimizing search queries I have used [GIN indexes](https://www.postgresql.o
 ```sql
 CREATE INDEX INDEX_NAME ON TABLE_NAME USING GIN(COLUMN_NAME)
 ```
-As per postgres docs gin indexes are 2-3x faster than other indexes available in postgres ( GIST and Btree) but uses more space.
+As per postgres docs gin indexes are 2-3x faster than other indexes available in postgres ( GIST and Btree) but uses more space. <br/>
+Also I added a trigger to db which will automatically generate a search vetor on any insert or update query
 ***
 ## Using the app
 
