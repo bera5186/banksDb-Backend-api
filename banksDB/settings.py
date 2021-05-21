@@ -158,6 +158,7 @@ INTERNAL_IPS = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+# setting up a local db for testing
 if 'test' in sys.argv:
     DATABASES['default'] = {
         "ENGINE": "django.db.backends.postgresql",
