@@ -28,25 +28,27 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = os.environ.get("DEBUG")
 
 ALLOWED_HOSTS = ["*"]
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    "api",
+    "rest_framework",
+    "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "api",
-    "rest_framework",
     "django.contrib.postgres",
     "debug_toolbar",
-    "corsheaders",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -55,7 +57,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "banksDB.urls"
@@ -156,15 +157,13 @@ INTERNAL_IPS = [
     # ...
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
-
 # setting up a local db for testing
-if 'test' in sys.argv:
-    DATABASES['default'] = {
+if "test" in sys.argv:
+    DATABASES["default"] = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "test_db",
-        "HOST": '172.17.0.2',
+        "HOST": "172.17.0.2",
         "PORT": "5432",
         "PASSWORD": "password",
-        "USER": "root"
+        "USER": "root",
     }
