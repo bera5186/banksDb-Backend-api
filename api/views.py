@@ -11,6 +11,8 @@ from rest_framework.response import Response
 from .serializers import BankSerializer, BranchSerializer
 from .models import Banks, Branches
 
+import math
+
 
 class BranchSearch(APIView):
 
@@ -39,11 +41,15 @@ class BranchSearch(APIView):
         query = SearchQuery(str(search_query).upper())
         branches = Branches.objects.filter(city=str(city).upper()).annotate(rank=SearchRank(vector, query)) \
                                                                   .order_by('-rank')
+
+        total_results = branches.count()
+        n_pages = math.ceil(total_results/int(limit))
+
         branches_limited = paginator.Paginator(branches, limit)
         branches_offsetted = branches_limited.get_page(offset)
         serializer = BranchSerializer(branches_offsetted, many=True)
 
-        return Response({"error":False,"result":serializer.data}, status=status.HTTP_200_OK)
+        return Response({"error":False,"result":serializer.data, "n_pages": n_pages, "per_page": limit}, status=status.HTTP_200_OK)
 
 
 class BranchesAutocomplete(APIView):
@@ -94,6 +100,10 @@ class BankInfo(APIView):
         bank = Banks.objects.filter(id=id).first()
         serialized_bank = BankSerializer(bank, many=False)
 
+        count = Branches.objects.filter(bank=id).count()
+        
+
         context["result"] = serialized_bank.data
+        context["n_branch"] = count
 
         return Response(context, status=status.HTTP_200_OK)
